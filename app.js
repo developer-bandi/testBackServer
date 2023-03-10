@@ -1,14 +1,16 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const {sequelize} = require("./models");
 const productRouter = require("./routes/product");
 const likeRouter = require("./routes/like");
 const basketRouter = require("./routes/basket");
 const purchaseRouter = require("./routes/purchase");
 const app = express();
-app.set("port", 8001);
 
+app.set("port", 8001);
+dotenv.config();
 sequelize
   .sync({force: false})
   .then(() => {
@@ -39,6 +41,6 @@ app.use((err, req, res, next) => {
   return res.send(err);
 });
 
-app.listen(8001, () => {
-  console.log("8001번 포트에서 대기중");
+app.listen(process.env.PORT, () => {
+  console.log(process.env.PORT + "번 포트에서 대기중");
 });
