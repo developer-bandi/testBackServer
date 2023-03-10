@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const {User, Product} = require("../models");
+const { User, Product } = require("../models");
 const db = require("../models/index");
-const {sequelize} = require("../models");
-const {Op} = require("sequelize");
+const { sequelize } = require("../models");
+const { Op } = require("sequelize");
 
 router.get("/", async (req, res) => {
-  const {id} = req.query;
+  const { id } = req.query;
   console.log(id);
   const result = await User.findOne({
-    where: {id},
+    where: { id },
     include: [
       {
         model: Product,
@@ -17,17 +17,19 @@ router.get("/", async (req, res) => {
       },
     ],
   });
-  console.log(result.dataValues.userLike.map(({dataValues}) => dataValues.id));
-  res.status(200);
+  console.log(
+    result.dataValues.userLike.map(({ dataValues }) => dataValues.id)
+  );
+  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
   return res.send(
-    result.dataValues.userLike.map(({dataValues}) => dataValues.id)
+    result.dataValues.userLike.map(({ dataValues }) => dataValues.id)
   );
 });
 
 router.get("/detail", async (req, res) => {
-  const {id, page} = req.query;
+  const { id, page } = req.query;
   const result = await User.findOne({
-    where: {id},
+    where: { id },
     include: [
       {
         model: Product,
@@ -41,7 +43,7 @@ router.get("/detail", async (req, res) => {
     where: {
       id: {
         [Op.in]: result.dataValues.userLike.map(
-          ({dataValues}) => dataValues.id
+          ({ dataValues }) => dataValues.id
         ),
       },
     },
@@ -53,14 +55,14 @@ router.get("/detail", async (req, res) => {
     ],
   });
 
-  res.status(200);
+  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
   return res.send(result2);
 });
 
 router.post("/", async (req, res) => {
   try {
     console.log(req.query);
-    const {userId, productId} = req.query;
+    const { userId, productId } = req.query;
     console.log(userId, productId);
 
     const [result, metadata] = await sequelize.query(
@@ -74,7 +76,7 @@ router.post("/", async (req, res) => {
     // const a = await db.sequelize.models.like.create({
     //   product_id: Number(productId),
     // });
-
+    res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
     res.send("ok");
   } catch (error) {
     console.error(error);
@@ -86,10 +88,11 @@ router.post("/", async (req, res) => {
 router.delete("/", async (req, res) => {
   try {
     console.log(req.query);
-    const {userId, productId} = req.query;
+    const { userId, productId } = req.query;
     await db.sequelize.models.like.destroy({
-      where: {user_id: Number(userId), product_id: Number(productId)},
+      where: { user_id: Number(userId), product_id: Number(productId) },
     });
+    res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
     res.send("ok");
   } catch (error) {
     console.error(error);

@@ -1,9 +1,9 @@
 const express = require("express");
 const Product = require("../models/product");
 const router = express.Router();
-const {Op} = require("sequelize");
-const {User} = require("../models");
-const {infonavigation, info, delivery, review, ask} = require("../rowdata");
+const { Op } = require("sequelize");
+const { User } = require("../models");
+const { infonavigation, info, delivery, review, ask } = require("../rowdata");
 
 const priceList = {
   "10,000원 이하": [0, 10000],
@@ -21,7 +21,7 @@ const sortList = {
 };
 
 router.get("/", async (req, res, next) => {
-  let {category, sort, filter, page} = req.query;
+  let { category, sort, filter, page } = req.query;
   let discount = false;
   let price = null;
   console.log(req.query);
@@ -45,15 +45,15 @@ router.get("/", async (req, res, next) => {
     return true;
   });
 
-  const {count, rows} = await Product.findAndCountAll({
+  const { count, rows } = await Product.findAndCountAll({
     where: {
-      category: category === "전체" ? {[Op.ne]: category} : category,
-      discountRate: discount ? {[Op.ne]: 0} : {[Op.lte]: 100},
-      brand: filter.length === 0 ? {[Op.ne]: "모든"} : {[Op.in]: filter},
+      category: category === "전체" ? { [Op.ne]: category } : category,
+      discountRate: discount ? { [Op.ne]: 0 } : { [Op.lte]: 100 },
+      brand: filter.length === 0 ? { [Op.ne]: "모든" } : { [Op.in]: filter },
       price:
         price === null
-          ? {[Op.ne]: "모든"}
-          : {[Op.and]: [{[Op.gte]: price[0]}, {[Op.lte]: price[1]}]},
+          ? { [Op.ne]: "모든" }
+          : { [Op.and]: [{ [Op.gte]: price[0] }, { [Op.lte]: price[1] }] },
     },
     distinct: true,
     include: [
@@ -70,7 +70,7 @@ router.get("/", async (req, res, next) => {
         ? 0
         : (page - 1) * 9,
   });
-  let result = rows.map(({dataValues}) => ({
+  let result = rows.map(({ dataValues }) => ({
     ...dataValues,
     productLike: dataValues.productLike.length,
   }));
@@ -80,13 +80,12 @@ router.get("/", async (req, res, next) => {
     result = result.slice((page - 1) * 9, page * 9);
   }
 
-  console.log({count, rows: result});
-  res.status(200);
-  return res.send({count, rows: result});
+  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  return res.send({ count, rows: result });
 });
 
 router.get("/banner", (req, res) => {
-  res.status(200);
+  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
   return res.send([
     "/image/banner1.png",
     "/image/banner2.png",
@@ -96,9 +95,9 @@ router.get("/banner", (req, res) => {
 });
 
 router.get("/detail", async (req, res) => {
-  const {id} = req.query;
+  const { id } = req.query;
   const result = await Product.findOne({
-    where: {id},
+    where: { id },
     include: [
       {
         model: User,
@@ -106,32 +105,32 @@ router.get("/detail", async (req, res) => {
       },
     ],
   });
-  res.status(200);
+  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
   return res.send(result);
 });
 
 router.get("/infonavigation", async (req, res) => {
-  res.status(200);
+  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
   return res.send(JSON.stringify(infonavigation));
 });
 
 router.get("/info", async (req, res) => {
-  res.status(200);
+  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
   return res.send(JSON.stringify(info));
 });
 
 router.get("/delivery", async (req, res) => {
-  res.status(200);
+  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
   return res.send(JSON.stringify(delivery));
 });
 
 router.get("/review", async (req, res) => {
-  res.status(200);
+  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
   return res.send(JSON.stringify(review));
 });
 
 router.get("/ask", async (req, res) => {
-  res.status(200);
+  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
   return res.send(JSON.stringify(ask));
 });
 

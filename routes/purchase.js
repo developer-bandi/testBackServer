@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {User, Product} = require("../models");
-const {sequelize} = require("../models");
+const { User, Product } = require("../models");
+const { sequelize } = require("../models");
 
 router.post("/", async (req, res) => {
-  const {product, id} = req.body;
+  const { product, id } = req.body;
   console.log(product);
   try {
     const array = await Promise.all(
@@ -18,18 +18,18 @@ router.post("/", async (req, res) => {
         );
       })
     );
-    res.status(200);
+    res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
     return res.send("ok");
   } catch {
-    res.status(203);
+    res.writeHead(203, { "Access-Control-Allow-Origin": "*" });
     return res.send("이미 구매한 물건입니다");
   }
 });
 
 router.get("/detail", async (req, res) => {
-  const {id} = req.query;
+  const { id } = req.query;
   const result = await User.findOne({
-    where: {id},
+    where: { id },
     include: [
       {
         model: Product,
@@ -37,7 +37,7 @@ router.get("/detail", async (req, res) => {
       },
     ],
   });
-  res.status(200);
+  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
   return res.send(result);
 });
 

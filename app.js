@@ -2,18 +2,18 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const {sequelize} = require("./models");
+const { sequelize } = require("./models");
 const productRouter = require("./routes/product");
 const likeRouter = require("./routes/like");
 const basketRouter = require("./routes/basket");
 const purchaseRouter = require("./routes/purchase");
 
-dotenv.config();
 const app = express();
-console.log(process.env.SEQULIZE_PASSWORD);
-console.log(process.env);
+dotenv.config();
+app.use(cors());
+
 sequelize
-  .sync({force: false})
+  .sync({ force: false })
   .then(() => {
     console.log("데이터베이스 연결 성공");
   })
@@ -21,11 +21,9 @@ sequelize
     console.log("에러 발생");
     console.error(error);
   });
-
-app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 app.use("/product", productRouter);
 app.use("/like", likeRouter);
