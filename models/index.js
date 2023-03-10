@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const config = require("../config");
 const Product = require("./product");
-const User = require("./User");
+const User = require("./user");
 
 const db = {};
 const sequelize = new Sequelize(
