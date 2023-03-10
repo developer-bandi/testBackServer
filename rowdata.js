@@ -3,7 +3,7 @@ exports.infonavigation = {
   ask: 150,
 };
 
-exports.info = ["image/info1.png", "image/info2.png", "image/info3.png"];
+exports.info = ["/image/info1.png", "/image/info2.png", "/image/info3.png"];
 
 exports.review = {
   avgrate: 3.6,
@@ -12,7 +12,7 @@ exports.review = {
   totalPage: 9,
   content: [
     {
-      avatar: "image/profile1.png",
+      avatar: "/image/profile1.png",
       nickname: "그린어스",
       rate: 5,
       date: "2023.12.31",
@@ -20,10 +20,14 @@ exports.review = {
       likedCount: 99,
       content:
         "거품도 잘 나고 배송도 빠르네요! 아주 만족합니다. 거품도 잘 나고 배송도 빠르네요! 제품리뷰가 3줄까지 들어갑니다 제품리뷰가 3줄까지 들어갑니다 제품리뷰가 3줄까지 들어갑니다 제품리뷰가 3줄까지 들어갑니다 제품리뷰가 3줄까지 들어갑니다 제품리뷰가 3줄까지 들어갑니다 제품리뷰가 3줄까지 들어갑니다 제품리뷰가 3줄까지 들어갑니다 제품리뷰가 3줄까지 들어갑니다 제품리뷰가 3줄까지 들어갑니다 제품리뷰가 3줄까지 들어갑니다 제품리뷰가 3줄까지 들어갑",
-      photo: ["image/comment1.png", "image/comment2.png", "image/comment3.png"],
+      photo: [
+        "/image/comment1.png",
+        "/image/comment2.png",
+        "/image/comment3.png",
+      ],
     },
     {
-      avatar: "image/profile2.png",
+      avatar: "/image/profile2.png",
       nickname: "Green0190",
       rate: 1,
       date: "2023.11.11",
@@ -33,14 +37,14 @@ exports.review = {
       photo: [],
     },
     {
-      avatar: "image/profile3.png",
+      avatar: "/image/profile3.png",
       nickname: "ZERO",
       rate: 2,
       date: "2023.11.11",
       liked: true,
       likedCount: 0,
       content: "빠른 배송 감사합니다. 추천합니다",
-      photo: ["image/comment4.png", "image/comment5.png"],
+      photo: ["/image/comment4.png", "/image/comment5.png"],
     },
   ],
 };
