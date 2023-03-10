@@ -80,12 +80,13 @@ router.get("/", async (req, res, next) => {
     result = result.slice((page - 1) * 9, page * 9);
   }
 
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  console.log({ count, rows: result });
+  res.status(200);
   return res.send({ count, rows: result });
 });
 
 router.get("/banner", (req, res) => {
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send([
     "/image/banner1.png",
     "/image/banner2.png",
@@ -105,32 +106,32 @@ router.get("/detail", async (req, res) => {
       },
     ],
   });
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send(result);
 });
 
 router.get("/infonavigation", async (req, res) => {
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send(JSON.stringify(infonavigation));
 });
 
 router.get("/info", async (req, res) => {
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send(JSON.stringify(info));
 });
 
 router.get("/delivery", async (req, res) => {
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send(JSON.stringify(delivery));
 });
 
 router.get("/review", async (req, res) => {
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send(JSON.stringify(review));
 });
 
 router.get("/ask", async (req, res) => {
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send(JSON.stringify(ask));
 });
 

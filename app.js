@@ -10,7 +10,7 @@ const purchaseRouter = require("./routes/purchase");
 
 const app = express();
 dotenv.config();
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 sequelize
   .sync({ force: false })

@@ -18,10 +18,10 @@ router.post("/", async (req, res) => {
         );
       })
     );
-    res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+    res.status(200);
     return res.send("ok");
   } catch {
-    res.writeHead(203, { "Access-Control-Allow-Origin": "*" });
+    res.status(203);
     return res.send("이미 구매한 물건입니다");
   }
 });
@@ -37,7 +37,7 @@ router.get("/detail", async (req, res) => {
       },
     ],
   });
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send(result);
 });
 

@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
   console.log(
     result.dataValues.userLike.map(({ dataValues }) => dataValues.id)
   );
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send(
     result.dataValues.userLike.map(({ dataValues }) => dataValues.id)
   );
@@ -55,7 +55,7 @@ router.get("/detail", async (req, res) => {
     ],
   });
 
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send(result2);
 });
 
@@ -76,7 +76,7 @@ router.post("/", async (req, res) => {
     // const a = await db.sequelize.models.like.create({
     //   product_id: Number(productId),
     // });
-    res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+
     res.send("ok");
   } catch (error) {
     console.error(error);
@@ -92,7 +92,6 @@ router.delete("/", async (req, res) => {
     await db.sequelize.models.like.destroy({
       where: { user_id: Number(userId), product_id: Number(productId) },
     });
-    res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
     res.send("ok");
   } catch (error) {
     console.error(error);

@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
       },
     ],
   });
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send(
     result.dataValues.userBasket.map(({ dataValues }) => {
       delete dataValues.basket;
@@ -35,7 +35,7 @@ router.get("/detail", async (req, res) => {
       },
     ],
   });
-  res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  res.status(200);
   return res.send(result);
 });
 
@@ -49,10 +49,10 @@ router.post("/", async (req, res) => {
         userId +
         ")"
     );
-    res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+
     res.send("ok");
   } catch (error) {
-    res.writeHead(203, { "Access-Control-Allow-Origin": "*" });
+    res.status(203);
     res.send("이미 담겨있습니다.");
   }
 });
@@ -64,7 +64,7 @@ router.delete("/", async (req, res) => {
     const result = await db.sequelize.models.basket.destroy({
       where: { user_id: Number(userId), product_id: Number(productId) },
     });
-    res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+    console.log(result);
     res.send({ id: Number(productId) });
   } catch (error) {
     console.error(error);
