@@ -7,16 +7,18 @@ const productRouter = require("./routes/product");
 const likeRouter = require("./routes/like");
 const basketRouter = require("./routes/basket");
 const purchaseRouter = require("./routes/purchase");
-const app = express();
 
-app.set("port", 8001);
 dotenv.config();
+const app = express();
+console.log(process.env.SEQULIZE_PASSWORD);
+console.log(process.env);
 sequelize
   .sync({force: false})
   .then(() => {
     console.log("데이터베이스 연결 성공");
   })
   .catch((error) => {
+    console.log("에러 발생");
     console.error(error);
   });
 
@@ -41,6 +43,6 @@ app.use((err, req, res, next) => {
   return res.send(err);
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(process.env.PORT + "번 포트에서 대기중");
+app.listen(process.env.PORT || 3306, () => {
+  console.log(process.env.PORT || 3306 + "번 포트에서 대기중");
 });
